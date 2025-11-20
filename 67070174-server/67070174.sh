@@ -1,6 +1,6 @@
 #!/bin/bash
 
-JSON_FILE="./67070174.json"
+JSON_FILE="./data.json"
 LAST_UPDATE=$(date '+%Y-%m-%d %H:%M:%S')
 CPU_USAGE=$(mpstat 1 1 | awk '/Average/ {print 100-$12"%"}')
 MEMORY_USAGE=$(free -h | awk 'NR==2 {print $3, $4, $7}')
@@ -20,21 +20,27 @@ JSON_CONTENT=$(cat <<EOF
         "available": "$(echo $MEMORY_USAGE | awk '{print $3}')"
     },
     "disk": {
-	"all": "$(echo $DISK_ALL)",
-	"usage": "$(echo $DISK_USAGE)"
+    "all": "$(echo $DISK_ALL)",
+    "usage": "$(echo $DISK_USAGE)"
     },
     "uptime": "$(echo $UPTIME)",
-    "ip": {
-	"ext": "$(echo $EXT_IP)",
-	"int": "$(echo $INT_IP)"
-    }
+    "lan_ip": "$(echo $EXT_IP)",
+    "internet_ip": "$(echo $INT_IP)"
 }
 EOF
 )
 
+
 JSON_CONTENT=$(echo "$JSON_CONTENT")
 
 echo "$JSON_CONTENT" > "$JSON_FILE"
+echo "$JSON_CONTENT" > ./logs/log_"$LAST_UPDATE".json
 
 echo "System status has been updated in $JSON_FILE"
+echo "Loged"
 
+git add .
+git commit -m 'update data "$LAST_UPDATE"'
+git push
+
+echo "git updated"

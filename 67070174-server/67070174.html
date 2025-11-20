@@ -3,100 +3,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>67070174's Server - System Usage</title>
-    <!-- Tailwind CSS CDN -->
+    <title>67070174's Server Monitor</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <style>
-        .content-wrapper {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-    </style>
 </head>
-<body class="bg-gray-100 text-gray-800 font-sans">
-
-    <div class="content-wrapper">
-        <header class="text-center py-6">
-            <h1 class="text-4xl font-bold text-green-500">System Usage Report</h1>
-            <p class="mt-2 text-xl text-gray-600">67070174's Server - Real-Time Monitoring</p>
+<body class="bg-gray-100 p-5">
+    <div class="max-w-6xl mx-auto">
+        
+        <header class="bg-white p-5 mb-5 border border-gray-300">
+            <h1 class="text-2xl font-bold mb-1">System Monitor - 67070174's Server</h1>
+            <p class="text-sm text-gray-600">Last updated: <span id="timestamp">--</span></p>
         </header>
 
-        <div class="bg-white p-4 shadow-md rounded-lg my-6">
-            <p id="last-updated" class="text-center text-gray-500 text-lg">Last updated: <span id="timestamp"></span></p>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mb-5">
+            <div class="bg-white p-5 border border-gray-300">
+                <div class="text-xs text-gray-600 uppercase mb-2">CPU Usage</div>
+                <div class="text-2xl font-bold" id="cpu-usage">--</div>
+            </div>
+            <div class="bg-white p-5 border border-gray-300">
+                <div class="text-xs text-gray-600 uppercase mb-2">Uptime (days)</div>
+                <div class="text-2xl font-bold" id="uptime">--</div>
+            </div>
+            <div class="bg-white p-5 border border-gray-300">
+                <div class="text-xs text-gray-600 uppercase mb-2">LAN IP</div>
+                <div class="text-lg font-bold" id="int-ip">--</div>
+            </div>
+            <div class="bg-white p-5 border border-gray-300">
+                <div class="text-xs text-gray-600 uppercase mb-2">Internet IP</div>
+                <div class="text-lg font-bold" id="ext-ip">--</div>
+            </div>
         </div>
 
-        <section class="bg-white p-4 shadow-md rounded-lg my-6">
-            <h2 class="text-2xl font-semibold text-blue-600">Memory Usage</h2>
-            <table id="memory-table" class="min-w-full table-auto mt-4">
-                <thead>
-                    <tr class="border-b">
-                        <th class="px-4 py-2 text-left text-lg text-gray-600">Used</th>
-                        <th class="px-4 py-2 text-left text-lg text-gray-600">Free</th>
-                        <th class="px-4 py-2 text-left text-lg text-gray-600">Available</th>
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
-        </section>
-        <section class="bg-white p-4 shadow-md rounded-lg my-6">
-            <h2 class="text-2xl font-semibold text-blue-600">CPU Usage</h2>
-            <p id="cpu-usage" class="text-xl text-gray-800">Loading...</p>
-        </section>
-        <section class="bg-white p-4 shadow-md rounded-lg my-6">
-            <h2 class="text-2xl font-semibold text-blue-600">Disk Usage</h2>
-            <table id="disk-table" class="min-w-full table-auto mt-4">
-                <thead>
-                    <tr class="border-b">
-                        <th class="px-4 py-2 text-left text-lg text-gray-600">Filesystem</th>
-                        <th class="px-4 py-2 text-left text-lg text-gray-600">Size</th>
-                        <th class="px-4 py-2 text-left text-lg text-gray-600">Used</th>
-                        <th class="px-4 py-2 text-left text-lg text-gray-600">Available</th>
-                        <th class="px-4 py-2 text-left text-lg text-gray-600">Use%</th>
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
-        </section>
+        <div class="bg-white p-5 border border-gray-300 mb-5">
+            <h2 class="text-lg font-bold mb-4">Memory Usage</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="bg-gray-50 p-4 border border-gray-200">
+                    <div class="text-xs text-gray-600 mb-2">Used</div>
+                    <div class="text-xl font-bold" id="mem-used">--</div>
+                </div>
+                <div class="bg-gray-50 p-4 border border-gray-200">
+                    <div class="text-xs text-gray-600 mb-2">Free</div>
+                    <div class="text-xl font-bold" id="mem-free">--</div>
+                </div>
+                <div class="bg-gray-50 p-4 border border-gray-200">
+                    <div class="text-xs text-gray-600 mb-2">Available</div>
+                    <div class="text-xl font-bold" id="mem-available">--</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white p-5 border border-gray-300">
+            <h2 class="text-lg font-bold mb-4">Disk Usage</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="bg-gray-50 p-4 border border-gray-200">
+                    <div class="text-xs text-gray-600 mb-2">Total Size</div>
+                    <div class="text-xl font-bold" id="disk-all">--</div>
+                </div>
+                <div class="bg-gray-50 p-4 border border-gray-200">
+                    <div class="text-xs text-gray-600 mb-2">Used</div>
+                    <div class="text-xl font-bold" id="disk-usage">--</div>
+                </div>
+                <div class="bg-gray-50 p-4 border border-gray-200">
+                    <div class="text-xs text-gray-600 mb-2">Usage Percentage</div>
+                    <div class="text-xl font-bold" id="disk-percent">--</div>
+                </div>
+            </div>
+        </div>
 
     </div>
 
     <script>
-	    console.log("load script");
-        function fetchAndUpdateData() {
-		console.log("call func")
-            fetch("./67070174.json")
-			.then(response => response.json())
-                .then(data => {
-			console.log("Response: ", data);
-                    const timestampElement = document.getElementById('timestamp');
-                    timestampElement.textContent = data.last_updated;
-
-                    const memoryTable = document.getElementById('memory-table').getElementsByTagName('tbody')[0];
-                    memoryTable.innerHTML = `
-                        <tr class="border-b">
-                            <td class="px-4 py-2">RAM</td>
-                            <td class="px-4 py-2">${data.memory.used}</td>
-                            <td class="px-4 py-2">${data.memory.free}</td>
-                            <td class="px-4 py-2">${data.memory.available}</td>
-                        </tr>
-                    `;
-
-                    const diskTable = document.getElementById('disk-table').getElementsByTagName('tbody')[0];
-                    diskTable.innerHTML = `
-                        <tr class="border-b">
-                            <td class="px-4 py-2">${data.disk.all}</td>
-                            <td class="px-4 py-2">${data.disk.usage}</td>
-                        </tr>
-                    `;
-                })
-                .catch(error => console.error('Error fetching data:', error));
+        function parseSize(sizeStr) {
+            const units = {'G': 1, 'M': 0.001, 'T': 1000};
+            const match = sizeStr.match(/([0-9.]+)([GMT])/);
+            if (match) {
+                return parseFloat(match[1]) * units[match[2]];
+            }
+            return 0;
         }
 
-        window.onload = fetchAndUpdateData;
+        function fetchData() {
+            fetch("./data.json")
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('timestamp').textContent = data.last_updated;
+                    document.getElementById('cpu-usage').textContent = data.cpu_usage;
+                    document.getElementById('uptime').textContent = data.uptime;
+                    document.getElementById('ext-ip').textContent = data.internet_ip;
+                    document.getElementById('int-ip').textContent = data.lan_ip;
+                    document.getElementById('mem-used').textContent = data.memory.used;
+                    document.getElementById('mem-free').textContent = data.memory.free;
+                    document.getElementById('mem-available').textContent = data.memory.available;
+                    document.getElementById('disk-all').textContent = data.disk.all;
+                    document.getElementById('disk-usage').textContent = data.disk.usage;
+
+                    const diskTotal = parseSize(data.disk.all);
+                    const diskUsed = parseSize(data.disk.usage);
+                    const diskPercent = diskTotal > 0 ? ((diskUsed / diskTotal) * 100).toFixed(1) : 0;
+                    document.getElementById('disk-percent').textContent = diskPercent + '%';
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        fetchData();
+        setInterval(fetchData, 60000);
     </script>
 </body>
 </html>
-
