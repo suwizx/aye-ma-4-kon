@@ -4,40 +4,87 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>67070102 Monitoring</title>
-    <!-- Import Google Font: Ubuntu -->
+
+    <!-- Google Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;700&display=swap" rel="stylesheet">
-    <!-- Link to your stylesheet -->
+
     <link rel="stylesheet" href="67070102.css">
 </head>
 <body>
     <div class="container">
-            <h1>System Monitor</h1>
-            <div class = "usage">
+        <h1>67070102 Server</h1>
 
-                <div class = "box">
-                    <div class ="cpu" >
-                        <h3>CPU Usage</h3>
-                        <h2>00.00%</h2>
-                    </div>
-                </div>
+        <div class="usage">
 
-                <div class = "box">
-                    <div class = "memory">
-                        <h3>Memory Usage</h3>
-                        <h2>00.00%</h2>
-                    </div>
-                </div>
-
-                <div class = "box">
-                    <div class = "storage">
-                        <h3>Storage Usage</h3>
-                        <h2>00.00%</h2>
-                    </div>
+            <div class="box">
+                <div class="item cpu">
+                    <h3>CPU Usage</h3>
+                    <h2>5.00%</h2>
+                        <div class="progress">
+                                <div class="progress-fill" style="width: 5%"></div>
+                        </div>
                 </div>
             </div>
+
+            <div class="box">
+                <div class="item memory">
+                    <h3>Memory Usage</h3>
+                    <h2>20.00%</h2>
+                        <div class="progress">
+                                <div class="progress-fill" style="width: 20%"></div>
+                        </div>
+                </div>
+            </div>
+        </div>
+
+        <div></div>
+        <div class="usage">
+
+            <div class="box">
+                <div class="item storage">
+                    <h3>Storage Usage</h3>
+                    <h2>78.00%</h2>
+                        <div class="progress">
+                                <div class="progress-fill" style="width: 78%"></div>
+                        </div>
+                </div>
+            </div>
+
+            <div class="box">
+                <div class="item network">
+                    <h3>Network</h3>
+
+                    <div class="network-line">
+                        <span class="label">LAN IP :</span>
+                        <span class="lan-value">192.168.0.0</span>
+                    </div>
+
+                    <div class="network-line">
+                        <span class="label">Local IP :</span>
+                        <span class="local-value">192.168.0.0</span>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
     </div>
+
+    <p class="update">last update : 21/11/2568 01:10 ยังไม่ได้นอน .°՞(っ-ᯅ-ς)՞°·.</p>
+
+    <script>
+    function updateProgress(selector, percent) {
+        const bar = document.querySelector(selector);
+        if (bar) {
+            bar.style.width = percent + '%';
+        }
+    }
+    </script>
 
 </body>
 </html>
+
+
+
