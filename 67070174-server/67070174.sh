@@ -1,6 +1,6 @@
 #!/bin/bash
 
-JSON_FILE="~/data.json"
+JSON_FILE="./data.json"
 LAST_UPDATE=$(date '+%Y-%m-%d %H:%M:%S')
 CPU_USAGE=$(mpstat 1 1 | awk '/Average/ {print 100-$12"%"}')
 MEMORY_USAGE=$(free -h | awk 'NR==2 {print $3, $4, $7}')
