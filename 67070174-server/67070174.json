@@ -1,14 +1,18 @@
 {
-    "last_updated": "2025-11-20 17:59:26"
-    "cpu_usage": "1.52%",
+    "last_updated": "2025-11-20 23:26:29",
+    "cpu_usage": "0.12%",
     "memory": {
-        "used": "2.5Gi",
-        "free": "261Mi",
-        "available": "1.3Gi"
+        "used": "608Mi",
+        "free": "2.6Gi",
+        "available": "3.2Gi"
     },
-    "disk": [
-	"all": "47G",
-	"usage": "9.8G"
-    ],
-    "uptime": "4:14"
+    "disk": {
+	"all": "1007G",
+	"usage": "2.7G"
+    },
+    "uptime": "25",
+    "ip": {
+	"ext": "58.8.172.124",
+	"int": "172.19.30.242"
+    }
 }

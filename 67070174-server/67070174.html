@@ -23,7 +23,7 @@
         </header>
 
         <div class="bg-white p-4 shadow-md rounded-lg my-6">
-            <p id="last-updated" class="text-center text-gray-500 text-lg">Last updated: <span id="timestamp">Loading...</span></p>
+            <p id="last-updated" class="text-center text-gray-500 text-lg">Last updated: <span id="timestamp"></span></p>
         </div>
 
         <section class="bg-white p-4 shadow-md rounded-lg my-6">
@@ -31,7 +31,6 @@
             <table id="memory-table" class="min-w-full table-auto mt-4">
                 <thead>
                     <tr class="border-b">
-                        <th class="px-4 py-2 text-left text-lg text-gray-600">Memory Type</th>
                         <th class="px-4 py-2 text-left text-lg text-gray-600">Used</th>
                         <th class="px-4 py-2 text-left text-lg text-gray-600">Free</th>
                         <th class="px-4 py-2 text-left text-lg text-gray-600">Available</th>
@@ -69,10 +68,7 @@
         function fetchAndUpdateData() {
 		console.log("call func")
             fetch("./67070174.json")
-			.then(response => {
-				response.json();
-				console.log("Response: ", response);
-			})
+			.then(response => response.json())
                 .then(data => {
 			console.log("Response: ", data);
                     const timestampElement = document.getElementById('timestamp');
@@ -86,24 +82,15 @@
                             <td class="px-4 py-2">${data.memory.free}</td>
                             <td class="px-4 py-2">${data.memory.available}</td>
                         </tr>
-                        <tr class="border-b">
-                            <td class="px-4 py-2">Swap</td>
-                            <td class="px-4 py-2">${data.swap.used}</td>
-                            <td class="px-4 py-2">${data.swap.free}</td>
-                            <td class="px-4 py-2">${data.swap.available}</td>
-                        </tr>
                     `;
 
                     const diskTable = document.getElementById('disk-table').getElementsByTagName('tbody')[0];
-                    diskTable.innerHTML = data.disk.map(disk => `
+                    diskTable.innerHTML = `
                         <tr class="border-b">
-                            <td class="px-4 py-2">${disk.filesystem}</td>
-                            <td class="px-4 py-2">${disk.size}</td>
-                            <td class="px-4 py-2">${disk.used}</td>
-                            <td class="px-4 py-2">${disk.available}</td>
-                            <td class="px-4 py-2">${disk.usePercent}</td>
+                            <td class="px-4 py-2">${data.disk.all}</td>
+                            <td class="px-4 py-2">${data.disk.usage}</td>
                         </tr>
-                    `).join('');
+                    `;
                 })
                 .catch(error => console.error('Error fetching data:', error));
         }

@@ -7,6 +7,8 @@ MEMORY_USAGE=$(free -h | awk 'NR==2 {print $3, $4, $7}')
 DISK_ALL=$(df -h / | tail -n 1 | awk '{print $2}')
 DISK_USAGE=$(df -h / | tail -n 1 | awk '{print $3}')
 UPTIME=$(uptime | awk '{print $3}' | sed 's/,$//')
+EXT_IP=$(echo | curl -s https://ipinfo.io/ip)
+INT_IP=$(hostname -I)
 
 JSON_CONTENT=$(cat <<EOF
 {
@@ -17,16 +19,20 @@ JSON_CONTENT=$(cat <<EOF
         "free": "$(echo $MEMORY_USAGE | awk '{print $2}')",
         "available": "$(echo $MEMORY_USAGE | awk '{print $3}')"
     },
-    "disk": [
+    "disk": {
 	"all": "$(echo $DISK_ALL)",
 	"usage": "$(echo $DISK_USAGE)"
-    ],
-    "uptime": "$(echo $UPTIME)"
+    },
+    "uptime": "$(echo $UPTIME)",
+    "ip": {
+	"ext": "$(echo $EXT_IP)",
+	"int": "$(echo $INT_IP)"
+    }
 }
 EOF
 )
 
-JSON_CONTENT=$(echo "$JSON_CONTENT" | sed 's/,$//')
+JSON_CONTENT=$(echo "$JSON_CONTENT")
 
 echo "$JSON_CONTENT" > "$JSON_FILE"
 
