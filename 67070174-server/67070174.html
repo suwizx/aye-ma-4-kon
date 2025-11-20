@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>67070174's Server - System Usage</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></scripti>
+    <style>
+        .content-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800 font-sans">
+
+    <div class="content-wrapper">
+        <header class="text-center py-6">
+            <h1 class="text-4xl font-bold text-green-500">System Usage Report</h1>
+            <p class="mt-2 text-xl text-gray-600">67070174's Server - Real-Time Monitoring</p>
+        </header>
+
+        <div class="bg-white p-4 shadow-md rounded-lg my-6">
+            <p id="last-updated" class="text-center text-gray-500 text-lg">Last updated: <span id="timestamp">Loading...</span></p>
+        </div>
+
+        <section class="bg-white p-4 shadow-md rounded-lg my-6">
+            <h2 class="text-2xl font-semibold text-blue-600">Memory Usage</h2>
+            <table id="memory-table" class="min-w-full table-auto mt-4">
+                <thead>
+                    <tr class="border-b">
+                        <th class="px-4 py-2 text-left text-lg text-gray-600">Memory Type</th>
+                        <th class="px-4 py-2 text-left text-lg text-gray-600">Used</th>
+                        <th class="px-4 py-2 text-left text-lg text-gray-600">Free</th>
+                        <th class="px-4 py-2 text-left text-lg text-gray-600">Available</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </section>
+        <section class="bg-white p-4 shadow-md rounded-lg my-6">
+            <h2 class="text-2xl font-semibold text-blue-600">CPU Usage</h2>
+            <p id="cpu-usage" class="text-xl text-gray-800">Loading...</p>
+        </section>
+        <section class="bg-white p-4 shadow-md rounded-lg my-6">
+            <h2 class="text-2xl font-semibold text-blue-600">Disk Usage</h2>
+            <table id="disk-table" class="min-w-full table-auto mt-4">
+                <thead>
+                    <tr class="border-b">
+                        <th class="px-4 py-2 text-left text-lg text-gray-600">Filesystem</th>
+                        <th class="px-4 py-2 text-left text-lg text-gray-600">Size</th>
+                        <th class="px-4 py-2 text-left text-lg text-gray-600">Used</th>
+                        <th class="px-4 py-2 text-left text-lg text-gray-600">Available</th>
+                        <th class="px-4 py-2 text-left text-lg text-gray-600">Use%</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </section>
+
+    </div>
+
+    <script>
+	    console.log("load script");
+        function fetchAndUpdateData() {
+		console.log("call func")
+            fetch("./67070174.json')
+			.then(response => {
+				response.json();
+				console.log("Response: ", response);
+			})
+                .then(data => {
+			console.log("Response: ", data);
+                    const timestampElement = document.getElementById('timestamp');
+                    timestampElement.textContent = data.last_updated;
+
+                    const memoryTable = document.getElementById('memory-table').getElementsByTagName('tbody')[0];
+                    memoryTable.innerHTML = `
+                        <tr class="border-b">
+                            <td class="px-4 py-2">RAM</td>
+                            <td class="px-4 py-2">${data.memory.used}</td>
+                            <td class="px-4 py-2">${data.memory.free}</td>
+                            <td class="px-4 py-2">${data.memory.available}</td>
+                        </tr>
+                        <tr class="border-b">
+                            <td class="px-4 py-2">Swap</td>
+                            <td class="px-4 py-2">${data.swap.used}</td>
+                            <td class="px-4 py-2">${data.swap.free}</td>
+                            <td class="px-4 py-2">${data.swap.available}</td>
+                        </tr>
+                    `;
+
+                    const diskTable = document.getElementById('disk-table').getElementsByTagName('tbody')[0];
+                    diskTable.innerHTML = data.disk.map(disk => `
+                        <tr class="border-b">
+                            <td class="px-4 py-2">${disk.filesystem}</td>
+                            <td class="px-4 py-2">${disk.size}</td>
+                            <td class="px-4 py-2">${disk.used}</td>
+                            <td class="px-4 py-2">${disk.available}</td>
+                            <td class="px-4 py-2">${disk.usePercent}</td>
+                        </tr>
+                    `).join('');
+                })
+                .catch(error => console.error('Error fetching data:', error));
+        }
+
+        window.onload = fetchAndUpdateData;
+    </script>
+</body>
+</html>
+
