@@ -136,19 +136,29 @@
             if (cpuItem) {
                 const cpuValue = cpuItem.querySelector('h2');
                 const cpuProgress = cpuItem.querySelector('.progress-fill');
-                if (cpuValue) cpuValue.textContent = `${cpuUsage.toFixed(2)}%`;
-                if (cpuProgress) cpuProgress.style.width = `${cpuUsage}%`;
+                if (cpuValue) {
+                    cpuValue.textContent = !isNaN(cpuUsage) ? `${cpuUsage.toFixed(2)}%` : 'N/A';
+                }
+                if (cpuProgress && !isNaN(cpuUsage)) {
+                    cpuProgress.style.width = `${cpuUsage}%`;
+                }
             }
 
             // Update Memory usage
-            const memoryInfo = calculateTotalMemory(data.memory);
-            const memoryPercent = (memoryInfo.usedMB / memoryInfo.totalMB) * 100;
-            const memoryItem = document.querySelector('.item.memory');
-            if (memoryItem) {
-                const memoryValue = memoryItem.querySelector('h2');
-                const memoryProgress = memoryItem.querySelector('.progress-fill');
-                if (memoryValue) memoryValue.textContent = `${memoryPercent.toFixed(2)}%`;
-                if (memoryProgress) memoryProgress.style.width = `${memoryPercent}%`;
+            if (data.memory && data.memory.used && data.memory.free && data.memory.available) {
+                const memoryInfo = calculateTotalMemory(data.memory);
+                const memoryPercent = (memoryInfo.usedMB / memoryInfo.totalMB) * 100;
+                const memoryItem = document.querySelector('.item.memory');
+                if (memoryItem) {
+                    const memoryValue = memoryItem.querySelector('h2');
+                    const memoryProgress = memoryItem.querySelector('.progress-fill');
+                    if (memoryValue && !isNaN(memoryPercent)) {
+                        memoryValue.textContent = `${memoryPercent.toFixed(2)}%`;
+                    }
+                    if (memoryProgress && !isNaN(memoryPercent)) {
+                        memoryProgress.style.width = `${memoryPercent}%`;
+                    }
+                }
             }
 
             // Update Storage usage
@@ -159,8 +169,12 @@
             if (storageItem) {
                 const storageValue = storageItem.querySelector('h2');
                 const storageProgress = storageItem.querySelector('.progress-fill');
-                if (storageValue) storageValue.textContent = `${storagePercent.toFixed(2)}%`;
-                if (storageProgress) storageProgress.style.width = `${storagePercent}%`;
+                if (storageValue && !isNaN(storagePercent)) {
+                    storageValue.textContent = `${storagePercent.toFixed(2)}%`;
+                }
+                if (storageProgress && !isNaN(storagePercent)) {
+                    storageProgress.style.width = `${storagePercent}%`;
+                }
             }
 
             // Update Network IPs
