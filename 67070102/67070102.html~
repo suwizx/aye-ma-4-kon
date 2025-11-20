@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>67070102 Monitoring</title>
+    <!-- Import Google Font: Ubuntu -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Link to your stylesheet -->
+    <link rel="stylesheet" href="67070102.css">
+</head>
+<body>
+    <div class="container">
+            <h1>System Monitor</h1>
+            <div class = "usage">
+
+                <div class = "box">
+                    <div class ="cpu" >
+                        <h3>CPU Usage</h3>
+                        <h2>00.00%</h2>
+                    </div>
+                </div>
+
+                <div class = "box">
+                    <div class = "memory">
+                        <h3>Memory Usage</h3>
+                        <h2>00.00%</h2>
+                    </div>
+                </div>
+
+                <div class = "box">
+                    <div class = "storage">
+                        <h3>Storage Usage</h3>
+                        <h2>00.00%</h2>
+                    </div>
+                </div>
+            </div>
+    </div>
+
+</body>
+</html>
