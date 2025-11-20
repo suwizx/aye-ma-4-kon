@@ -1,0 +1,129 @@
+body {
+    font-family: 'Ubuntu', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    
+    /* --- Flexbox for Centering --- */
+    /* This centers the .container vertically and horizontally */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* --- Main Content Container --- */
+.container {
+    text-align: center;
+    padding: 20px;
+ 
+}
+
+.container-2 {
+  
+  gap: 100px; 
+  padding: 40px;
+}
+
+.mid-container-l{
+  display: flex;
+  text-align: center;
+  flex-direction: row;
+  gap: 60px;
+}
+
+.mid-container-r {
+  display: flex;
+  flex-direction: row;
+  gap: 60px;
+  justify-content: center; 
+  align-items: center; 
+  margin: 0 auto; 
+  text-align: center;
+}
+
+/* --- Sub-container --- */
+.sub-container {
+  text-align: center;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+
+.sub-container-1{
+   text-align: center;
+   padding: 10px;
+}
+
+h1 {
+    color: #003049;
+    font-size: 2.5rem; /* Big text */
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+
+
+.card {
+  display: flex;
+  flex-direction: column; 
+  align-items: center;  
+  
+
+  border-radius: 8px;
+  width: 260px;
+  height: 130px;
+  margin-bottom: 40px;
+}
+
+
+.card-name {
+    width: 100%;             
+    box-sizing: border-box;
+    background-color: #F77F00;
+    color: #FFF; 
+    text-decoration: none; 
+    text-align: center;
+    padding: 15px 30px;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 700;
+
+}
+
+.card-info {
+  background-color: #FFF;
+
+  padding: 12px 24px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.txt-update{
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #43C6C3;
+}
+
+.progress {
+  background-color: #ddd;
+  border-radius: 6px;
+  overflow: hidden;
+  height: 12px;
+  margin-top: 8px;
+}
+
+.progress-fill {
+  background-color: #43C6C3; 
+  height: 100%;
+  width: 0; 
+  transition: width 0.5s ease; 
+}
+
+
+
