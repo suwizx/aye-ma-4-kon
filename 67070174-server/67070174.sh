@@ -1,6 +1,6 @@
 #!/bin/bash
 
-JSON_FILE="./data.json"
+JSON_FILE="/home/phos/project/ms-project/67070174-server/data.json"
 LAST_UPDATE=$(date '+%Y-%m-%d %H:%M:%S')
 CPU_USAGE=$(mpstat 1 1 | awk '/Average/ {print 100-$12"%"}')
 MEMORY_USAGE=$(free -h | awk 'NR==2 {print $3, $4, $7}')
@@ -30,7 +30,7 @@ JSON_CONTENT=$(cat <<EOF
 EOF
 )
 
-cd /home/suwizx/aye-ma-4-kon/67070174-server
+cd /home/phos/project/ms-project/67070174-server
 
 JSON_CONTENT=$(echo "$JSON_CONTENT")
 
