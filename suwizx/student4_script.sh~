@@ -38,9 +38,3 @@ echo "$JSON_CONTENT" > ./logs/log_"$LAST_UPDATE".json
 
 echo "System status has been updated in $JSON_FILE"
 echo "Loged"
-
-git add .
-git commit -m 'update data "$LAST_UPDATE"'
-git push
-
-echo "git updated"
