@@ -1,0 +1,101 @@
+/* --- Base Styles & Font Import --- */
+body {
+    /* Use the Ubuntu font, fallback to sans-serif */
+    font-family: 'Ubuntu', sans-serif;
+    background-color: #f4f4f4; /* Light grey background */
+    margin: 0;
+    padding: 0;
+    
+    /* --- Flexbox for Centering --- */
+    /* This centers the .container vertically and horizontally */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* --- Main Content Container --- */
+.container {
+    text-align: center;
+    padding: 20px;
+ 
+}
+
+.container-2 {
+  display: flex;
+  justify-content: space-between; 
+  gap: 100px; 
+  padding: 40px;
+}
+
+.mid-container-l,
+.mid-container-r {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 60px;
+}
+
+/* --- Sub-container --- */
+.sub-container {
+  text-align: left;
+  padding: 10px;
+}
+
+
+.sub-container-1{
+   text-align: center;
+   padding: 10px;
+}
+
+h1 {
+    color: #003049;
+    font-size: 2.5rem; /* Big text */
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+
+
+/* --- Container --- */
+.card{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+/* --- Custom Card--- */
+.card-name {
+    /* Your requested style */
+    background-color: #F77F00; /* Black background */
+    color: #FFF; 
+    
+    /* --- Nice Extras --- */
+    text-decoration: none; /* Remove underline from link */
+    padding: 15px 30px;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    
+    /* --- Smooth Transition --- */
+    transition: all 0.3s ease;
+}
+
+.txt-update{
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #43C6C3;
+}
+
+.up-line{
+
+}
+
+.up-info{
+
+}
+
+
+
