@@ -30,7 +30,7 @@ JSON_CONTENT=$(cat <<EOF
 EOF
 )
 
-cd /home/suwizx/aye-ma-4-kon/suwizx
+cd /home/phos/project/ms-project/67070174-server
 
 JSON_CONTENT=$(echo "$JSON_CONTENT")
 
