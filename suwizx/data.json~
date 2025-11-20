@@ -1,0 +1,14 @@
+{
+    "last_updated": "2025-11-20 17:59:26",
+    "cpu_usage": "1.52%",
+    "memory": {
+        "used": "2.5Gi",
+        "free": "261Mi",
+        "available": "1.3Gi"
+    },
+    "disk": {
+	"all": "47G",
+	"usage": "9.8G"
+    },
+    "uptime": "4:14"
+}
