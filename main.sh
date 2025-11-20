@@ -1,9 +1,13 @@
+#!/bin/bash
+
 echo "push status start ..."
 
-CPU_ALL=$(df -h / | tail -n 1 | awk '{print $2}')
-CPU_USAGE=$(df -h / | tail -n 1 | awk '{print $3}')
+DISK_ALL=$(df -h / | tail -n 1 | awk '{print $2}')
+DISK_USEAGE=$(df -h / | tail -n 1 | awk '{print $3}')
+CPU_USAGE=$(mpstat 1 1 | awk '/Average/ {print 100-$12"%"}')
 MEMORY_USAGE=$(free -h)
 
-echo $CPU_ALL
+echo $DISK_ALL
+echo $DISK_USAGE
 echo $CPU_USAGE
 echo $MEMORY_USAGE
