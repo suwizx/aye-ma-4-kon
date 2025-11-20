@@ -1,8 +1,6 @@
-/* --- Base Styles & Font Import --- */
 body {
-    /* Use the Ubuntu font, fallback to sans-serif */
     font-family: 'Ubuntu', sans-serif;
-    background-color: #f4f4f4; /* Light grey background */
+    background-color: #f4f4f4;
     margin: 0;
     padding: 0;
     
@@ -22,24 +20,33 @@ body {
 }
 
 .container-2 {
-  display: flex;
-  justify-content: space-between; 
+  
   gap: 100px; 
   padding: 40px;
 }
 
-.mid-container-l,
+.mid-container-l{
+  display: flex;
+  text-align: center;
+  flex-direction: row;
+  gap: 60px;
+}
+
 .mid-container-r {
   display: flex;
-  align-items: flex-start;
-  flex-direction: column;
+  flex-direction: row;
   gap: 60px;
+  justify-content: center; 
+  align-items: center; 
+  margin: 0 auto; 
+  text-align: center;
 }
 
 /* --- Sub-container --- */
 .sub-container {
-  text-align: left;
+  text-align: center;
   padding: 10px;
+  border-radius: 8px;
 }
 
 
@@ -57,29 +64,43 @@ h1 {
 
 
 
-/* --- Container --- */
-.card{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
+.card {
+  display: flex;
+  flex-direction: column; 
+  align-items: center;  
+  
+
+  border-radius: 8px;
+  width: 260px;
+  height: 130px;
+  margin-bottom: 40px;
 }
 
-/* --- Custom Card--- */
+
 .card-name {
-    /* Your requested style */
-    background-color: #F77F00; /* Black background */
+    width: 100%;             
+    box-sizing: border-box;
+    background-color: #F77F00;
     color: #FFF; 
-    
-    /* --- Nice Extras --- */
-    text-decoration: none; /* Remove underline from link */
+    text-decoration: none; 
+    text-align: center;
     padding: 15px 30px;
     border-radius: 8px;
     font-size: 1.1rem;
     font-weight: 700;
-    
-    /* --- Smooth Transition --- */
-    transition: all 0.3s ease;
+
+}
+
+.card-info {
+  background-color: #FFF;
+
+  padding: 12px 24px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
 }
 
 .txt-update{
@@ -89,12 +110,19 @@ h1 {
   color: #43C6C3;
 }
 
-.up-line{
-
+.progress {
+  background-color: #ddd;
+  border-radius: 6px;
+  overflow: hidden;
+  height: 12px;
+  margin-top: 8px;
 }
 
-.up-info{
-
+.progress-fill {
+  background-color: #43C6C3; 
+  height: 100%;
+  width: 0; 
+  transition: width 0.5s ease; 
 }
 
 
