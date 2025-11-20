@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>67070174's Server Monitor</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body class="bg-gray-100 p-5">
+    <div class="max-w-6xl mx-auto">
+        
+        <header class="bg-white p-5 mb-5 border border-gray-300">
+            <h1 class="text-2xl font-bold mb-1">System Monitor - 67070174's Server</h1>
+            <p class="text-sm text-gray-600">Last updated: <span id="timestamp">--</span></p>
+        </header>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mb-5">
+            <div class="bg-white p-5 border border-gray-300">
+                <div class="text-xs text-gray-600 uppercase mb-2">CPU Usage</div>
+                <div class="text-2xl font-bold" id="cpu-usage">--</div>
+            </div>
+            <div class="bg-white p-5 border border-gray-300">
+                <div class="text-xs text-gray-600 uppercase mb-2">Uptime (days)</div>
+                <div class="text-2xl font-bold" id="uptime">--</div>
+            </div>
+            <div class="bg-white p-5 border border-gray-300">
+                <div class="text-xs text-gray-600 uppercase mb-2">LAN IP</div>
+                <div class="text-lg font-bold" id="int-ip">--</div>
+            </div>
+            <div class="bg-white p-5 border border-gray-300">
+                <div class="text-xs text-gray-600 uppercase mb-2">Internet IP</div>
+                <div class="text-lg font-bold" id="ext-ip">--</div>
+            </div>
+        </div>
+
+        <div class="bg-white p-5 border border-gray-300 mb-5">
+            <h2 class="text-lg font-bold mb-4">Memory Usage</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="bg-gray-50 p-4 border border-gray-200">
+                    <div class="text-xs text-gray-600 mb-2">Used</div>
+                    <div class="text-xl font-bold" id="mem-used">--</div>
+                </div>
+                <div class="bg-gray-50 p-4 border border-gray-200">
+                    <div class="text-xs text-gray-600 mb-2">Free</div>
+                    <div class="text-xl font-bold" id="mem-free">--</div>
+                </div>
+                <div class="bg-gray-50 p-4 border border-gray-200">
+                    <div class="text-xs text-gray-600 mb-2">Available</div>
+                    <div class="text-xl font-bold" id="mem-available">--</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white p-5 border border-gray-300">
+            <h2 class="text-lg font-bold mb-4">Disk Usage</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="bg-gray-50 p-4 border border-gray-200">
+                    <div class="text-xs text-gray-600 mb-2">Total Size</div>
+                    <div class="text-xl font-bold" id="disk-all">--</div>
+                </div>
+                <div class="bg-gray-50 p-4 border border-gray-200">
+                    <div class="text-xs text-gray-600 mb-2">Used</div>
+                    <div class="text-xl font-bold" id="disk-usage">--</div>
+                </div>
+                <div class="bg-gray-50 p-4 border border-gray-200">
+                    <div class="text-xs text-gray-600 mb-2">Usage Percentage</div>
+                    <div class="text-xl font-bold" id="disk-percent">--</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function parseSize(sizeStr) {
+            const units = {'G': 1, 'M': 0.001, 'T': 1000};
+            const match = sizeStr.match(/([0-9.]+)([GMT])/);
+            if (match) {
+                return parseFloat(match[1]) * units[match[2]];
+            }
+            return 0;
+        }
+
+        function fetchData() {
+            fetch("./data.json")
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('timestamp').textContent = data.last_updated;
+                    document.getElementById('cpu-usage').textContent = data.cpu_usage;
+                    document.getElementById('uptime').textContent = data.uptime;
+                    document.getElementById('ext-ip').textContent = data.internet_ip;
+                    document.getElementById('int-ip').textContent = data.lan_ip;
+                    document.getElementById('mem-used').textContent = data.memory.used;
+                    document.getElementById('mem-free').textContent = data.memory.free;
+                    document.getElementById('mem-available').textContent = data.memory.available;
+                    document.getElementById('disk-all').textContent = data.disk.all;
+                    document.getElementById('disk-usage').textContent = data.disk.usage;
+
+                    const diskTotal = parseSize(data.disk.all);
+                    const diskUsed = parseSize(data.disk.usage);
+                    const diskPercent = diskTotal > 0 ? ((diskUsed / diskTotal) * 100).toFixed(1) : 0;
+                    document.getElementById('disk-percent').textContent = diskPercent + '%';
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        fetchData();
+        setInterval(fetchData, 60000);
+    </script>
+</body>
+</html>
