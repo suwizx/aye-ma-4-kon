@@ -1,8 +1,8 @@
 {
-    "last_updated": "2025-11-21 01:52:41",
-    "cpu_usage": "0%",
+    "last_updated": "2025-11-21 01:52:57",
+    "cpu_usage": "0.5%",
     "memory": {
-        "used": "477Mi",
+        "used": "479Mi",
         "free": "3.3Gi",
         "available": "3.3Gi"
     },
