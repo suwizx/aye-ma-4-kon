@@ -1,0 +1,16 @@
+{
+    "last_updated": "2025-11-21 06:40:01",
+    "cpu_usage": "1.98%",
+    "memory": {
+        "used": "271Mi",
+        "free": "1.1Gi",
+        "available": "1.6Gi"
+    },
+    "disk": {
+	"all": "19G",
+	"usage": "4.8G"
+    },
+    "uptime": "2:48",
+    "lan_ip": "",
+    "internet_ip": "172.16.86.128"
+}
