@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,6 +13,7 @@
 
     <link rel="stylesheet" href="67070102.css">
 </head>
+
 <body>
     <div class="container">
         <h1>67070102 Server</h1>
@@ -22,9 +24,9 @@
                 <div class="item cpu">
                     <h3>CPU Usage</h3>
                     <h2>5.00%</h2>
-                        <div class="progress">
-                                <div class="progress-fill" style="width: 5%"></div>
-                        </div>
+                    <div class="progress">
+                        <div class="progress-fill" style="width: 5%"></div>
+                    </div>
                 </div>
             </div>
 
@@ -32,9 +34,9 @@
                 <div class="item memory">
                     <h3>Memory Usage</h3>
                     <h2>20.00%</h2>
-                        <div class="progress">
-                                <div class="progress-fill" style="width: 20%"></div>
-                        </div>
+                    <div class="progress">
+                        <div class="progress-fill" style="width: 20%"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -46,9 +48,9 @@
                 <div class="item storage">
                     <h3>Storage Usage</h3>
                     <h2>78.00%</h2>
-                        <div class="progress">
-                                <div class="progress-fill" style="width: 78%"></div>
-                        </div>
+                    <div class="progress">
+                        <div class="progress-fill" style="width: 78%"></div>
+                    </div>
                 </div>
             </div>
 
@@ -72,19 +74,132 @@
         </div>
     </div>
 
-    <p class="update">last update : 21/11/2568 01:10 ยังไม่ได้นอน .°՞(っ-ᯅ-ς)՞°·.</p>
+    <p class="update">last update : <span id="lastupdate">21/11/2568 01:19 ยังไม่ได้นอน .°՞(っ-ᯅ-ς)՞°·.</span></p>
 
     <script>
-    function updateProgress(selector, percent) {
-        const bar = document.querySelector(selector);
-        if (bar) {
-            bar.style.width = percent + '%';
+        async function fetchServerStats() {
+            try {
+                const response = await fetch("./data.json");
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+                return data;
+            } catch (error) {
+                console.error('Error fetching server stats:', error);
+                return null;
+            }
         }
-    }
+
+        function calculateTotalMemory(memory) {
+            const parseMemory = (str) => {
+                const value = parseFloat(str);
+                const unit = str.replace(/[0-9.]/g, '');
+
+                if (unit === 'Gi') return value * 1024;
+                if (unit === 'Mi') return value;
+                if (unit === 'G') return value * 1024;
+                if (unit === 'M') return value;
+                return value;
+            };
+
+            const used = parseMemory(memory.used);
+            const free = parseMemory(memory.free);
+            const available = parseMemory(memory.available);
+
+            const totalFree = available + free;
+            const total = used + totalFree;
+
+            return {
+                used: memory.used,
+                total: `${(total / 1024).toFixed(1)}Gi`,
+                usedMB: used,
+                totalMB: total
+            };
+        }
+
+        function updateUI(data) {
+            if (!data) {
+                console.error('No data to update UI');
+                return;
+            }
+
+            // Update last update time
+            const lastUpdateEl = document.getElementById('lastupdate');
+            if (lastUpdateEl) {
+                lastUpdateEl.textContent = data.last_updated || 'N/A';
+            }
+
+            // Update CPU usage
+            const cpuUsage = parseFloat(data.cpu_usage);
+            const cpuItem = document.querySelector('.item.cpu');
+            if (cpuItem) {
+                const cpuValue = cpuItem.querySelector('h2');
+                const cpuProgress = cpuItem.querySelector('.progress-fill');
+                if (cpuValue) {
+                    cpuValue.textContent = !isNaN(cpuUsage) ? `${cpuUsage.toFixed(2)}%` : 'N/A';
+                }
+                if (cpuProgress && !isNaN(cpuUsage)) {
+                    cpuProgress.style.width = `${cpuUsage}%`;
+                }
+            }
+
+            // Update Memory usage
+            if (data.memory && data.memory.used && data.memory.free && data.memory.available) {
+                const memoryInfo = calculateTotalMemory(data.memory);
+                const memoryPercent = (memoryInfo.usedMB / memoryInfo.totalMB) * 100;
+                const memoryItem = document.querySelector('.item.memory');
+                if (memoryItem) {
+                    const memoryValue = memoryItem.querySelector('h2');
+                    const memoryProgress = memoryItem.querySelector('.progress-fill');
+                    if (memoryValue && !isNaN(memoryPercent)) {
+                        memoryValue.textContent = `${memoryPercent.toFixed(2)}%`;
+                    }
+                    if (memoryProgress && !isNaN(memoryPercent)) {
+                        memoryProgress.style.width = `${memoryPercent}%`;
+                    }
+                }
+            }
+
+            // Update Storage usage
+            const storageUsed = parseFloat(data.disk.usage);
+            const storageTotal = parseFloat(data.disk.all);
+            const storagePercent = (storageUsed / storageTotal) * 100;
+            const storageItem = document.querySelector('.item.storage');
+            if (storageItem) {
+                const storageValue = storageItem.querySelector('h2');
+                const storageProgress = storageItem.querySelector('.progress-fill');
+                if (storageValue && !isNaN(storagePercent)) {
+                    storageValue.textContent = `${storagePercent.toFixed(2)}%`;
+                }
+                if (storageProgress && !isNaN(storagePercent)) {
+                    storageProgress.style.width = `${storagePercent}%`;
+                }
+            }
+
+            // Update Network IPs
+            if (data.lan_ip) {
+                const lanIpEl = document.querySelector('.lan-value');
+                if (lanIpEl) lanIpEl.textContent = data.lan_ip;
+            }
+            if (data.internet_ip) {
+                const localIpEl = document.querySelector('.local-value');
+                if (localIpEl) localIpEl.textContent = data.internet_ip;
+            }
+        }
+
+        async function initMonitoring() {
+            const data = await fetchServerStats();
+            updateUI(data);
+
+            setInterval(async () => {
+                const data = await fetchServerStats();
+                updateUI(data);
+            }, 5000);
+        }
+        document.addEventListener('DOMContentLoaded', initMonitoring);
     </script>
 
 </body>
+
 </html>
-
-
-
