@@ -1,8 +1,8 @@
 {
-    "last_updated": "2025-11-21 02:00:01",
-    "cpu_usage": "0.5%",
+    "last_updated": "2025-11-21 02:10:01",
+    "cpu_usage": "0%",
     "memory": {
-        "used": "483Mi",
+        "used": "480Mi",
         "free": "3.3Gi",
         "available": "3.3Gi"
     },
@@ -10,7 +10,7 @@
     "all": "23G",
     "usage": "6.3G"
     },
-    "uptime": "21",
+    "uptime": "31",
     "lan_ip": "161.246.72.73",
     "internet_ip": "10.110.192.70"
 }
